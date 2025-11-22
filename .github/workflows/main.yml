@@ -8,6 +8,11 @@ on:
 permissions:
   contents: write
   
+# 关键：固定并发组名为仓库标识，确保所有实例同属一组
+concurrency:
+  group: ${{ github.repository }}  # 用仓库名作为全局唯一并发组（如 "owner/repo"）
+  cancel-in-progress: false  # 新实例等待旧实例完成，不取消正在运行的
+
 jobs:
   run-and-release:
     runs-on: windows-latest
